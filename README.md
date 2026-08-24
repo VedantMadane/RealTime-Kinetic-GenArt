@@ -78,3 +78,7 @@ python main.py
 
 - **`b`**: Toggle between pitch-black and darkened webcam background
 - **`q`**: Quit
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
