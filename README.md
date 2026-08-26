@@ -1,48 +1,80 @@
 # KineticGhost.ai: Real-Time Generative Motion Art
-*"Turning Human Kinematics into a Symphony of Light."*
 
-KineticGhost is a high-performance Computer Vision installation that bridges the gap between AI-driven pose estimation and generative digital art. By leveraging MediaPipe’s blazingly fast landmark detection and a custom 2D physics engine, this project transforms a live webcam feed into a dynamic, ethereal particle system.
+A high-performance Computer Vision installation that transforms a live webcam feed into dynamic generative art. Using MediaPipe pose estimation and a custom NumPy-based physics engine, human motion becomes an interactive neon particle system.
 
-## ✨ The "Fascinating" Vision
-The goal was simple: Make the invisible, visible. The system doesn't just "detect" a body; it reimagines it. Every gesture creates a digital aura, and every movement leaves a neon trail in its wake. It is designed to be a high-visual-impact showcase of what happens when Artificial Intelligence meets Creative Coding.
+## Architecture
 
-## 🛠️ The Tech Stack (Under the Hood)
-- **Core Logic**: Python & OpenCV
-- **AI Engine**: MediaPipe (Holistic Pose Estimation)
-- **Physics Engine**: Custom-built vectorized NumPy particle dynamics (Velocity, Friction, Gravity)
-- **Temporal Analysis**: Motion History Imaging (MHI) via coordinate queueing for real-time light trails.
-- **Rendering**: Optimized NumPy index mapping and Additive blending for a high-FPS "glow" effect.
+```mermaid
+flowchart TD
+    A[Webcam Input] --> B[OpenCV Capture]
+    B --> C[MediaPipe Holistic]
+    C --> D[Landmark Extraction]
+    D --> E[Moving Average Smoother]
+    E --> F{Data Router}
+    F --> G[ParticleEngine]
+    F --> H[Renderer]
+    G --> I[Physics Update<br/>Velocity, Friction, Gravity]
+    I --> H
+    H --> J[Multi-Layer Compositor]
+    J --> K[Display Output]
+    
+    subgraph Physics Layer
+        G
+        I
+    end
+    
+    subgraph Rendering Layer
+        H
+        J
+    end
+```
 
-## 🚀 Key Technical Breakthroughs
-- **Zero-Latency Pipeline**: Implemented a highly optimized NumPy-based renderer that updates and draws 20,000+ particles at 30+ FPS without traditional loop bottlenecks.
-- **Dynamic Motion Trails**: Implemented a fast decaying temporal buffer that creates glowing arcs based on the velocity of user gestures.
-- **Jitter-Free Tracking**: Utilizes a Moving Average smoothing filter on MediaPipe landmarks to prevent AI "flicker" and create a silky smooth visual output.
-- **Reactive Aesthetic**: The particle field responds to the intensity of motion. Explosive hand movements spawn hundreds of high-velocity particles, while stillness tightens the "aura".
+## Tech Stack
 
-## 📸 Usage & Controls
+- **Language**: Python
+- **Computer Vision**: OpenCV, MediaPipe (Holistic Pose Estimation)
+- **Physics & Rendering**: NumPy (vectorized particle dynamics, additive blending)
+- **Temporal Effects**: Motion history buffering for light trails
 
-### Installation
+## Key Features
+
+- **Real-time pose tracking**: MediaPipe Holistic with moving-average jitter smoothing
+- **Particle physics**: Custom engine with velocity, friction, and gravity (20,000+ particles at 30+ FPS)
+- **Neon skeleton rendering**: Multi-pass glow effect with bloom
+- **Motion trails**: Velocity-based neon arcs from fast-moving extremities
+- **Cinematic composition**: Vignette, additive blending, and dual background modes
+
+## Project Structure
+
+```
+.
+├── main.py                      # Application entry point
+├── requirements.txt             # Python dependencies
+├── README.md                    # Project documentation
+├── LICENSE                      # License file
+├── issue script/                # Automation scripts
+│   ├── requirements_for_issues.txt
+│   └── create_github_issues.py
+└── src/
+    ├── __init__.py
+    ├── kinetic_ghost.py         # Main app: webcam loop, MediaPipe pipeline, smoothing
+    ├── particle_engine.py       # NumPy-based particle physics (velocity, friction, gravity)
+    └── renderer.py              # Multi-layer renderer: stardust, neon core, bloom, trails, vignette
+```
+
+## Installation
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### Running the App
+## Usage
+
 ```bash
 python main.py
 ```
 
-### Controls
-To get the best visual experience, make sure you have good lighting on yourself so the AI can track you.
-- **Action**: Swipe your hands fast to "ignite" the stardust and create glowing neon arcs.
-- `b` Key: Toggle between the **Pitch-Black Background** (for maximum neon contrast) and the **Darkened Webcam Background** (to show the real-time AI magic).
-- `q` Key: Quit the application.
+## Controls
 
----
-
-### Tips for Content Creation (LinkedIn / Socials)
-If you are recording this for a showcase:
-1. Start the video with the screen completely black (`b` toggled off).
-2. Walk into the frame and "swipe" your hand to "ignite" the particles. That transition from nothing to a "Digital Ghost" is a scroll-stopper!
-3. Toggle the background (`b`) mid-video to reveal your silhouette and prove it's a live AI system.
-
-*#ComputerVision #GenerativeArt #Python #AI #MediaPipe*
+- **`b`**: Toggle between pitch-black and darkened webcam background
+- **`q`**: Quit
